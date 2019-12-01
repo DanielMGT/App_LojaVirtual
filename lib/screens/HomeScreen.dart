@@ -32,7 +32,7 @@ class HomeScreen extends StatelessWidget {
             ),
           ),
           drawer: CustomDrawer(_pageController),
-          body: ProductsList(),
+          body:ProductsList(),
           floatingActionButton: BotaoCarrinho(),
         ),
         Container(color: Colors.red),

@@ -19,10 +19,12 @@ class ProductsList extends StatelessWidget {
               tiles: snapshot.data.documents.map((doc) {
                 return BotaoCategoria(doc);
               }).toList(),
+              context: context,
               color: Colors.grey[500]).toList();
           return ListView(
             children: dividedTiles,
           );
+
         }
       });
   }

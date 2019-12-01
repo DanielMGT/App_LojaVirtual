@@ -1,7 +1,11 @@
 import 'package:flutter/material.dart';
+import 'package:loja_virtual/Widgets/cupomDesconto.dart';
+import 'package:loja_virtual/Widgets/frete.dart';
+import 'package:loja_virtual/Widgets/resumoCarrinho.dart';
 import 'package:loja_virtual/models/CarrinhoModel.dart';
 import 'package:loja_virtual/models/UserModel.dart';
 import 'package:loja_virtual/screens/LoginScreen.dart';
+import 'package:loja_virtual/tabs/CompraProdutos.dart';
 import 'package:scoped_model/scoped_model.dart';
 
 class TelaCarrinho extends StatefulWidget {
@@ -66,6 +70,29 @@ class _TelaCarrinhoState extends State<TelaCarrinho> {
                   ],
                 ),
               );
+            }else if(model.products == null || model.products.length==0){
+              return Center(
+                child: Text("Nenhum produto no carrinho",
+                style: TextStyle(fontSize: 20.0, fontWeight: FontWeight.bold),
+                textAlign: TextAlign.center),
+              );
+            }else {
+              return ListView(
+                children: <Widget>[
+                  Column(
+                    children:
+                      model.products.map(
+                          (product){
+                            return CompraProdutos(product);
+                          }
+                      ).toList(),
+                  ),
+                  cupomDesconto(),
+                  frete(),
+                  resumoCarrinho(),
+                ],
+              );
+
             }
           }
 

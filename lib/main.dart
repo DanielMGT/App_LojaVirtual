@@ -13,9 +13,9 @@ class MyApp extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return ScopedModel<UserModel>(
-      model: UserModel(),
-      child: ScopedModelDescendant<UserModel>(
-          builder: (context, child, model) {
+        model: UserModel(),
+        child: ScopedModelDescendant<UserModel>(
+            builder: (context, child, model) {
               return ScopedModel<CarrinhoModel>(
                   model: CarrinhoModel(model),
                   child: MaterialApp(
@@ -27,8 +27,8 @@ class MyApp extends StatelessWidget {
                     home: HomeScreen(),
                   )
               );
-          }
-          )
+            }
+        )
     );
   }
 }
