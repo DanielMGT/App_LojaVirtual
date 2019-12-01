@@ -24,7 +24,7 @@ class ProdCarrinho {
       "category": category,
       "pid": pId,
       "qtd": qtd,
-      //"products": prodCarrinho.toResumeMap(),
+      "product": prodCarrinho.toResumeMap(),
     };
   }
 }

@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:loja_virtual/CustomDrawer/CustomDrawer.dart';
 import 'package:loja_virtual/tabs/BotaoCarrinho.dart';
 import 'package:loja_virtual/tabs/HomeTab.dart';
+import 'package:loja_virtual/tabs/Pedidos.dart';
 import 'package:loja_virtual/tabs/ProductsList.dart';
 
 class HomeScreen extends StatelessWidget {
@@ -36,7 +37,14 @@ class HomeScreen extends StatelessWidget {
           floatingActionButton: BotaoCarrinho(),
         ),
         Container(color: Colors.red),
-        Container(color: Colors.green),
+        Scaffold(
+          appBar: AppBar(
+            title: Text("Meus Pedidos"),
+            centerTitle: true,
+          ),
+          drawer: CustomDrawer(_pageController),
+          body: Pedidos(),
+        )
       ],
     );
   }

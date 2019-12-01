@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:loja_virtual/models/CarrinhoModel.dart';
 import 'package:loja_virtual/models/UserModel.dart';
 import 'package:loja_virtual/screens/HomeScreen.dart';
+import 'package:loja_virtual/screens/LoginScreen.dart';
 import 'package:scoped_model/scoped_model.dart';
 
 

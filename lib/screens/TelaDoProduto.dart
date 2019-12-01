@@ -4,7 +4,6 @@ import 'package:flutter/material.dart';
 import 'package:loja_virtual/Dados/DadosProduto.dart';
 import 'package:loja_virtual/Dados/ProdCarrinho.dart';
 import 'package:loja_virtual/models/CarrinhoModel.dart';
-import 'package:loja_virtual/models/CarrinhoModel.dart' as prefix0;
 import 'package:loja_virtual/models/UserModel.dart';
 import 'package:loja_virtual/screens/LoginScreen.dart';
 import 'package:loja_virtual/screens/TelaCarrinho.dart';
@@ -69,17 +68,19 @@ class _TelaDoProdutoState extends State<TelaDoProduto> {
                             fontWeight: FontWeight.bold,
                           )),
                       onPressed: () {
+
                         if (UserModel.of(context).isLoggedIn()) {
                           ProdCarrinho carProd = ProdCarrinho();
                           carProd.qtd = 1;
                           carProd.pId = produto.id;
                           carProd.category = produto.category;
+                          carProd.prodCarrinho = produto;
                           CarrinhoModel.of(context).addProd(carProd);
+
 
                           Navigator.of(context).push(MaterialPageRoute(
                             builder: (context) => TelaCarrinho(),
                           ));
-
                         } else {
                           Navigator.of(context).push(MaterialPageRoute(
                             builder: (context) => LoginScreen(),

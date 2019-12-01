@@ -106,4 +106,49 @@ class CarrinhoModel extends Model{
   double getPrecoEntrega(){
     return 2.99;
   }
+
+  Future<String> finalizarPedido() async {
+    if(products.length == 0) return null;
+
+    isLoading = true;
+    notifyListeners();
+
+    double precoProd = getPrecoProduto();
+    double precoFrete = getPrecoEntrega();
+    double desconto = getDesconto();
+
+    DocumentReference refPedido = await Firestore.instance.collection("pedidos").add(
+      {
+        "clientId": user.firebaseUser.uid,
+        "produtos": products.map((prodCarrinho) => prodCarrinho.toMap()).toList(),
+        "precoProd": precoProd,
+        "precoFrete": precoFrete,
+        "desconto": desconto,
+        "precoTotal": precoProd + precoFrete - desconto,
+        "status": 1
+      }
+    );
+
+    await Firestore.instance.collection("usuarios").document(user.firebaseUser.uid).
+    collection("pedidos").document(refPedido.documentID).setData(
+      {
+        "idPedido": refPedido.documentID,
+      }
+    );
+
+    QuerySnapshot query = await Firestore.instance.collection("usuarios").document(user.firebaseUser.uid).collection("carrinho").getDocuments();
+
+    for(DocumentSnapshot doc in query.documents){
+      doc.reference.delete();
+    }
+
+    products.clear();
+    cupomCode = null;
+    this.desconto = 0;
+
+    isLoading = false;
+    notifyListeners();
+
+    return refPedido.documentID;
+  }
 }

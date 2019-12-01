@@ -5,6 +5,7 @@ import 'package:loja_virtual/Widgets/resumoCarrinho.dart';
 import 'package:loja_virtual/models/CarrinhoModel.dart';
 import 'package:loja_virtual/models/UserModel.dart';
 import 'package:loja_virtual/screens/LoginScreen.dart';
+import 'package:loja_virtual/screens/TelaPedido.dart';
 import 'package:loja_virtual/tabs/CompraProdutos.dart';
 import 'package:scoped_model/scoped_model.dart';
 
@@ -72,7 +73,7 @@ class _TelaCarrinhoState extends State<TelaCarrinho> {
               );
             }else if(model.products == null || model.products.length==0){
               return Center(
-                child: Text("Nenhum produto no carrinho",
+                child: Text("Nenhum produto no carrinho!",
                 style: TextStyle(fontSize: 20.0, fontWeight: FontWeight.bold),
                 textAlign: TextAlign.center),
               );
@@ -89,7 +90,16 @@ class _TelaCarrinhoState extends State<TelaCarrinho> {
                   ),
                   cupomDesconto(),
                   frete(),
-                  resumoCarrinho(),
+                  resumoCarrinho(() async {
+                    String idPedido = await model.finalizarPedido();
+                    if(idPedido != null){
+                      Navigator.of(context).pushReplacement(
+                        MaterialPageRoute(
+                          builder: (context) => TelaPedido(idPedido),
+                        )
+                      );
+                    }
+                  }),
                 ],
               );
 
